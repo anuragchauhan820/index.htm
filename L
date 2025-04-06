@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amarkart - Shop India’s Best</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #f1f3f6;
+            color: #212121;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2874f0;
+            color: #fff;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff6161;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ff6161;
+        }
+        .section {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        .section.active {
+            display: block;
+        }
+        .hero {
+            background: #2874f0;
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 500;
+        }
+        .hero p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .cta-btn {
+            background: #ff6161;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .cta-btn:hover {
+            background: #ff8f8f;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .filters select, .filters input {
+            padding: 8px;
+            border: 1px solid #d4d5d9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .product {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #f1f3f6;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+        .product:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+        .product h3 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #212121;
+        }
+        .product .price {
+            font-size: 16px;
+            color: #388e3c;
+            font-weight: 600;
+        }
+        .product .rating {
+            color: #ffca28;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        .add-to-cart {
+            background: #ff6161;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .add-to-cart:hover {
+            background: #ff8f8f;
+        }
+        .product-details {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #f1f3f6;
+            border-radius: 4px;
+            margin-top: 15px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product-details img {
+            max-width: 300px;
+            border-radius: 4px;
+        }
+        .product-details .info {
+            flex: 1;
+        }
+        .cart-items, .checkout-form {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #f1f3f6;
+            border-radius: 4px;
+            margin-top: 15px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-items ul {
+            list-style: none;
+        }
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f3f6;
+        }
+        .checkout-form form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .checkout-form input, .checkout-form select {
+            padding: 10px;
+            border: 1px solid #d4d5d9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        footer {
+            background: #2874f0;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; padding: 10px; }
+            .search-bar { margin: 10px 0; width: 100%; }
+            .hero h1 { font-size: 28px; }
+            .hero p { font-size: 16px; }
+            .product-details { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Amarkart</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products..." id="search-input">
+                <button onclick="searchProducts()">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('shop')">Shop</a></li>
+                <li><a onclick="showSection('cart')">Cart</a></li>
+                <li><a onclick="showSection('checkout')">Checkout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="section active">
+        <div class="hero">
+            <h1>Explore India’s Best Deals</h1>
+            <p>Clothes, Electronics, Handmade & More</p>
+            <a href="#shop" class="cta-btn">Shop Now</a>
+        </div>
+        <h2>Bestsellers</h2>
+        <div class="product-grid" id="bestsellers"></div>
+    </section>
+
+    <section id="shop" class="section">
+        <h1>Shop All Products</h1>
+        <div class="filters">
+            <select id="sort" onchange="sortProducts()">
+                <option value="default">Sort by</option>
+                <option value="high-to-low">Price: High to Low</option>
+                <option value="low-to-high">Price: Low to High</option>
+            </select>
+            <input type="number" placeholder="Min Price" id="min-price" oninput="filterProducts()">
+            <input type="number" placeholder="Max Price" id="max-price" oninput="filterProducts()">
+        </div>
+        <div class="product-grid" id="shop-products"></div>
+    </section>
+
+    <section id="product" class="section">
+        <div class="product-details">
+            <img id="product-img" src="" alt="Product Image">
+            <div class="info">
+                <h1 id="product-name"></h1>
+                <p class="price" id="product-price"></p>
+                <div class="rating">★★★★☆ (4.5)</div>
+                <p id="product-desc"></p>
+                <button class="add-to-cart" id="product-add-btn">Add to Cart</button>
+                <p>Payment Options: <strong>UPI</strong> | <strong>COD</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cart" class="section">
+        <h1>Your Cart</h1>
+        <div class="cart-items">
+            <ul id="cart-items"></ul>
+            <p>Total: ₹<span id="cart-total">0</span></p>
+            <div class="cta-btn" onclick="showSection('checkout
